@@ -11,7 +11,7 @@
 - 액션 안건에 필요한 행동/팀역할 포함
 - 개인 최종점수 = 자가 1/3 + 관찰 2/3 (개인보고서 6p 기준)
 - 팀 리포트에 개인-팀 비교(Top1~3 vs 팀평균) 섹션 추가
-- 개인 점수가 팀 평균 대비 35% 이상 또는 200% 이상인 인원/팀역할만 표시
+- 개인 점수가 팀 평균 대비 35% 이상이면 표시, 200% 이상이면 강조 표시
 - 팀 평균 2종 계산(개인 평균 vs OCR 평균) -> 차이 감지 시 FT 선택
 - FT 미응답 시 리포트 생성 보류
 - 팀 평균 0일 때: 부재 역할 표시, 개인 점수>0이면 희소 역할 보유 플래그(높음 판단 제외)
@@ -106,6 +106,7 @@
               "personFinalScore": "number",
               "teamAvgScore": "number",
               "highlighted": true,
+              "highlightLevel": "standard|strong|none",
               "thresholdType": "ratio135|ratio200|none",
               "teamAvgZero": true,
               "scarceRoleFlag": true,
@@ -115,7 +116,10 @@
           "source": {}
         }
       ],
-      "display": { "showOnlyAboveThreshold": true }
+      "display": {
+        "showOnlyAboveThreshold": true,
+        "emphasizeOver200": true
+      }
     },
     "contextInterpretation": [
       {"statement": "string", "source": {}}
@@ -154,7 +158,8 @@
   - actionLongList는 관찰자 응답 개괄의 부정 키워드 Top3를 고려
 
 - 비교 표시 규칙
-  - teamAvgScore 대비 personFinalScore가 1.35 이상 또는 2.0 이상인 경우만 표시
+  - teamAvgScore 대비 personFinalScore가 1.35 이상이면 표시
+  - teamAvgScore 대비 personFinalScore가 2.0 이상이면 강조 표시
   - teamAvgScore = 0이면 비교 계산 안 함, teamAvgZero = true
   - teamAvgScore = 0이고 personFinalScore > 0이면 scarceRoleFlag = true
 
